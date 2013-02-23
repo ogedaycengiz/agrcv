@@ -571,5 +571,4 @@ template <typename T> void ortPikselDegerleriniDondur(Mat &mat)
         }
     }
 
-
 }

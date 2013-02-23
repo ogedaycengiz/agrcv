@@ -8,6 +8,8 @@
 using namespace cv;
 using namespace std;
 
+
+//Bu sınıf thread olacak.
 class GoruntuYoneticisi
 {
 public:

@@ -71,6 +71,7 @@ void *seriport_t_fonksiyon(void *v);
 static void paralelbgr(const Mat &res, Mat &sonuc);
 static void paralelgolge_bul(const Mat &res, Mat &sonuc);
 static void paralel_golgeSil(const Mat &res, Mat &sonuc);
+static string getSdCardCid();
 
 int main(int argc, char *argv[])
 {
@@ -83,6 +84,8 @@ int main(int argc, char *argv[])
    seriPort->seriPortuAc(QString("/dev/ttyUSB0"));
    int t_sonuc1, t_sonuc2;
    t_sonuc1 = pthread_create(&goruntuisleme_thread, NULL, goruntuisleme_t_fonksiyon, NULL);
+
+
     //QSound::play("alarm/alarm.wav");
    // const char *res_yol1 = "/home/eren/bitki.jpg";
    // const char *res_yol2 = "/home/eren/ornek.jpg";
@@ -846,4 +849,16 @@ static void paralel_golgeSil(const Mat &res, Mat &sonuc)
     GolgeSil_ParalelP body(res, sonuc);
     Range t = Range(0, res.total());
     parallel_for_(t, body, 4);
+}
+
+#define SD_CARD_CID "/sys/block/sda/device/model"
+
+static string getSdCardCid()
+{
+    string cid;
+    ifstream file;
+    file.open(SD_CARD_CID);
+    file >> cid;
+    file.close();
+    return cid;
 }
