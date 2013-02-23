@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/1/trunk/cvblob/test
+END
+EnterExitCrossingPaths2front_blobs.txt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1/trunk/cvblob/test/EnterExitCrossingPaths2front_blobs.txt
+END
+test.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/1/trunk/cvblob/test/test.cpp
+END
+test_random.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/1/trunk/cvblob/test/test_random.cpp
+END
+EnterExitCrossingPaths2front_blobs.mpeg
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/1/trunk/cvblob/test/EnterExitCrossingPaths2front_blobs.mpeg
+END
+test.png
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/1/trunk/cvblob/test/test.png
+END
+test_tracking.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/1/trunk/cvblob/test/test_tracking.cpp
+END
