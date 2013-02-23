@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
     if (b) cout << "Acildi" << endl;
     else cout << "Port acilamadi" << endl;*/
     VideoCapture capture;
-    const string dosya_adi = "/home/linaro/kayit.avi";
+    const string dosya_adi = "/home/eren/kayit.avi";
     capture.open(dosya_adi);
 
     //ofstream paralel;
@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
         cout << "Geçen Süre = " << gecen_sure << " ms" << endl;
         //paralel << gecen_sure << ",\n";
         //k++;
-        char c = cvWaitKey(20);
+        char c = cvWaitKey(1);
         if (c == 27)
         {
             exit(1);
