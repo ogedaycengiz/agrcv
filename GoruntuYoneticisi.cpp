@@ -94,7 +94,7 @@ void GoruntuYoneticisi::goruntuEkle(Mat res)
 
 void GoruntuYoneticisi::vidyoDanOku()
 {
-    const string dosya_adi = "/home/eren/kayit.avi";
+    const string dosya_adi = "/home/linaro/kayit.avi";
     capture.open(dosya_adi);
     if (capture.isOpened())
     {
