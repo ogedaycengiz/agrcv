@@ -690,21 +690,21 @@ static void paralelbgr(const Mat &res, Mat &sonuc)
 {
     bgrHesapla_ParalelP body(res, sonuc);
     Range t = Range(0, res.total());
-    parallel_for_(t, body, 4);
+    parallel_for_(t, body, 2);
 }
 
 static void paralelgolge_bul(const Mat &res, Mat &sonuc)
 {
     GolgeBul_ParalelP body(res, sonuc);
     Range t = Range(0, res.total());
-    parallel_for_(t, body, 4);
+    parallel_for_(t, body, 2);
 }
 
 static void paralel_golgeSil(const Mat &res, Mat &sonuc)
 {
     GolgeSil_ParalelP body(res, sonuc);
     Range t = Range(0, res.total());
-    parallel_for_(t, body, 4);
+    parallel_for_(t, body, 2);
 }
 
 #define SD_CARD_CID "/sys/block/sda/device/model"
