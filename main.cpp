@@ -130,7 +130,7 @@ void kameradanIslet(Mat &rr)
    // Mat r = gy.kameradanOku();
     Mat r = rr;
     r.copyTo(ornekGoruntu);
-    blur(ornekGoruntu, ornekGoruntu, Size(9,9));
+    //blur(ornekGoruntu, ornekGoruntu, Size(9,9));
     Mat h = Mat(ornekGoruntu.size(), CV_8UC1);
     paralelgolge_bul(ornekGoruntu, h);
     Mat grayhist = Mat(50, 256, CV_8U, Scalar(255));
@@ -690,21 +690,21 @@ static void paralelbgr(const Mat &res, Mat &sonuc)
 {
     bgrHesapla_ParalelP body(res, sonuc);
     Range t = Range(0, res.total());
-    parallel_for_(t, body, 2);
+    parallel_for_(t, body, 4);
 }
 
 static void paralelgolge_bul(const Mat &res, Mat &sonuc)
 {
     GolgeBul_ParalelP body(res, sonuc);
     Range t = Range(0, res.total());
-    parallel_for_(t, body, 2);
+    parallel_for_(t, body, 4);
 }
 
 static void paralel_golgeSil(const Mat &res, Mat &sonuc)
 {
     GolgeSil_ParalelP body(res, sonuc);
     Range t = Range(0, res.total());
-    parallel_for_(t, body, 2);
+    parallel_for_(t, body, 4);
 }
 
 #define SD_CARD_CID "/sys/block/sda/device/model"
