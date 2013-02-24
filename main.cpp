@@ -77,35 +77,10 @@ int main(int argc, char *argv[])
 {
 
    QApplication a(argc, argv);
-   //mediaObject = Phonon::createPlayer(Phonon::NoCategory, Phonon::MediaSource("/home/eren/GuvenlikVidyo/alarm/alarm.wav"));
-  // tcpBaglantisi = new TcpBaglantisi();
-   //tcpBaglantisi->listen(QHostAddress::Any, 1234);
    seriPort = new SeriPort();
    seriPort->seriPortuAc(QString("/dev/ttyUSB0"));
    int t_sonuc1, t_sonuc2;
    t_sonuc1 = pthread_create(&goruntuisleme_thread, NULL, goruntuisleme_t_fonksiyon, NULL);
-
-
-    //QSound::play("alarm/alarm.wav");
-   // const char *res_yol1 = "/home/eren/bitki.jpg";
-   // const char *res_yol2 = "/home/eren/ornek.jpg";
-   // dosyadanIslet(res_yol1);
-   // dosyadanIslet(res_yol2);
-   // namedWindow("Sinirlar", CV_WINDOW_AUTOSIZE);
-    //namedWindow("Seg", CV_WINDOW_AUTOSIZE);
-   // ornekGoruntuOku(res_yol1);
-    /*setMouseCallback("Sinirlar", onMouse, 0);
-    createTrackbar("Esik Degeri:", "Sinirlar", &thres, 255, 0);
-    createTrackbar("Maksimum Sinir:", "Sinirlar", &sinirBoyut, 3000, 0);
-    createTrackbar("Saturation:", "Seg", &sat, 255, 0);
-    createTrackbar("Val:", "Seg", &val, 255, 0);*/
-
-  /*  SeriPort *seriPort = new SeriPort();
-    char *port_adi = "/dev/ttyS0";
-    seriPort->portBelirle(port_adi);
-    bool b = seriPort->ac();
-    if (b) cout << "Acildi" << endl;
-    else cout << "Port acilamadi" << endl;*/
     VideoCapture capture;
     const string dosya_adi = "/home/linaro/kayit.avi";
     capture.open(dosya_adi);
@@ -150,68 +125,29 @@ static void onMouse(int event, int x, int y, int, void*)
 */
 void kameradanIslet(Mat &rr)
 {
+    //Kameradan okunacak görüntü ile çalışacak. Şuan deneme yapabilmek için video ile çalışılıyor.
     //gy.vidyoDanOku();
    // Mat r = gy.kameradanOku();
     Mat r = rr;
     r.copyTo(ornekGoruntu);
     blur(ornekGoruntu, ornekGoruntu, Size(9,9));
-   // goruntuIsleme.kmeansCluster(ornekGoruntu);
-   // medianBlur(ornekGoruntu, ornekGoruntu, 9);
- //   cvSmooth(ornekGoruntu, ornekGoruntu, CV_MEDIAN);
-   // GaussianBlur(ornekGoruntu, ornekGoruntu, Size(9,9), 0.1, 0.2);
-   // blur(r, r, Size(3,3));
-    //r.copyTo(km);
-    /*Blob Çıkarımı.*/
-    /*Mat tr;
-    cvtColor(km, tr, CV_BGR2GRAY);
-    blur(tr, tr, Size(5,5));
-    threshold(tr, tr, thres, 255, CV_THRESH_BINARY);
-    blobRes = goruntuIsleme.blobCikarimi(tr, 255, sinirBoyut);*/
-    //Örnek histograma bağlı olarak arkaplan çıkarımı yap.
-    //goruntuIsleme.arkaplanCikarimi(r, ornekHist, backproj);
-    /*Mat h;
-    ornekGHist = goruntuIsleme.histogramHesapla(km, h);*/
-
-    //goruntuIsleme.histResDegisimi(ornekHist, h);
-
-   // Mat tampon;
-  //  km.copyTo(tampon);
-    //goruntuIsleme.arkaplanCikarimi(tampon, ornekHist, backproj);
-
-
-    //Histogram Eşitleme uygula.
-   // Mat ss;
-    //goruntuIsleme.histogramEsitleme(km, ss);
-
-   /* char c = cvWaitKey(10);
-    if (c == 27)
-    {
-        exit(1);
-    }*/
     Mat h = Mat(ornekGoruntu.size(), CV_8UC1);
     paralelgolge_bul(ornekGoruntu, h);
-   // goruntuIsleme.golgeBul(ornekGoruntu, h);
     Mat grayhist = Mat(50, 256, CV_8U, Scalar(255));
     int ix = goruntuIsleme.grayHistogram(h, grayhist);
-    //imshow("gray hist", grayhist);
-    //int th = goruntuIsleme.histogramlaEsikDegeriBul(h);
-    cout << "Eşik Değeri: " << ix << endl;
     imshow("BGRR", h);
     threshold(h, h, ix / 2, 255, CV_THRESH_BINARY_INV);
-
- //   erode(h, h, Mat(), Point(-1,-1), 4);
     erode(h, h, Mat());
     dilate(h, h, Mat());
     dilate(h, h, Mat());
     imshow("BGR", h);
-   Mat glg;
+
+   /*Mat glg;
    r.copyTo(glg);
    paralel_golgeSil(h, glg);
- //  goruntuIsleme.golgeleriSil(h, glg);
    imshow("golge tamamen silindi", glg);
    Mat glgcikarim = Mat(ornekGoruntu.size(), CV_8UC1);
    paralelbgr(glg,glgcikarim);
-  // goruntuIsleme.rgbUzerindenCikarim(glg, glgcikarim);
    erode(glgcikarim, glgcikarim, Mat(), Point(-1,-1), 2);
    dilate(glgcikarim, glgcikarim, Mat());
    blur(glgcikarim, glgcikarim, Size(3,3));
@@ -219,99 +155,19 @@ void kameradanIslet(Mat &rr)
    Mat grayhist_glg = Mat(50, 256, CV_8U, Scalar(255));
    int ix_glg = goruntuIsleme.grayHistogram(glgcikarim, grayhist_glg);
 
-   Mat adaptive_cikarim = Mat(glgcikarim.size(), CV_8UC1);
-   adaptiveThreshold(glgcikarim ,adaptive_cikarim, 255, CV_ADAPTIVE_THRESH_MEAN_C, CV_THRESH_BINARY, 5, 3);
-   bitwise_not(adaptive_cikarim, adaptive_cikarim);
-   GaussianBlur(adaptive_cikarim, adaptive_cikarim, Size(3,3), 0);
-  // dilate(glgcikarim, glgcikarim, Mat());
    Mat kernel = (Mat_<uchar>(3,3) <<  0, 1, 0, 1, 1, 1, 0, 1, 0);
-   //erode(adaptive_cikarim, adaptive_cikarim, kernel, Point(-1, -1), 1);
-//   dilate(adaptive_cikarim, adaptive_cikarim, kernel, Point(-1,-1), 1);
-
-  /* Point maxPt;
-   Point minPt;
-   int max = -1;
-   int min = -1;
-   for (int i = 0; i < adaptive_cikarim.rows; i++)
-   {
-       uchar *p = adaptive_cikarim.ptr(i);
-       for (int j = 0; j < adaptive_cikarim.cols; j++)
-       {
-           if (p[j] > 128)
-           {
-               int bolge = floodFill(adaptive_cikarim, Point(j, i), CV_RGB(0, 0, 64));
-               if (bolge > max)
-               {
-                   maxPt = Point(j, i);
-                   max = bolge;
-               }
-               if (bolge < 20)
-               {
-                   minPt = Point(j, i);
-                   min = bolge;
-
-               }
-
-           }
-       }
-   }
-   floodFill(adaptive_cikarim, minPt, CV_RGB(0,0,0));
-   floodFill(adaptive_cikarim, maxPt, CV_RGB(0,0,255));
-
-   cout << "Max ff: " << max << endl;*/
-
-
-   //imshow("Adaptive Threshold", adaptive_cikarim);
-
-
    dilate(glgcikarim, glgcikarim, kernel);
    erode(glgcikarim, glgcikarim, kernel, Point(-1, -1), 1);
    threshold(glgcikarim, glgcikarim, 10, 255, CV_THRESH_BINARY);
    dilate(glgcikarim, glgcikarim, kernel);
    erode(glgcikarim, glgcikarim, kernel);
-  // blur(glgcikarim, glgcikarim, Size(9,9));
-   //GaussianBlur(glgcikarim, glgcikarim, Size(5,5), 1.5);
-   //erode(glgcikarim, glgcikarim, Mat(), Point(-1,-1), 2);
-   //dilate(glgcikarim, glgcikarim, Mat(), Point(-1,-1), 4);
-   //threshold(glgcikarim, glgcikarim, 200, 255, CV_THRESH_BINARY);
- /*  blur(glgcikarim, glgcikarim, Size(5,5));
-   erode(glgcikarim, glgcikarim, Mat(), Point(-1, -1), 3);
-   imshow("Blur golge", glgcikarim);
-
-   erode(glgcikarim, glgcikarim, Mat(), Point(-1, -1), 3);
-   dilate(glgcikarim, glgcikarim, Mat());
-   dilate(glgcikarim, glgcikarim, Mat(), Point(-1,-1), 2);
-
-   threshold(glgcikarim, glgcikarim, 200, 255, CV_THRESH_BINARY);*/
-
-
-   // bool b = goruntuIsleme.mogUzerindenBlobCikarimi(ornekGoruntu, h, 1000 , 50000, rv);
-
-    //Bitkileri resimden çıkar.
-//    Mat bitkiler = Mat(ornekGoruntu.size(), CV_8UC3, Scalar(255,255,255));
-    /*if (rv.size() != 0)
-    {
-        for (int i = 0; i < rv.size(); i++)
-        {
-            Mat rvm = ornekGoruntu(rv.at(i));
-            stringstream ss;
-            ss << "Bitki: " << i+1;
-            string s = ss.str();
-            bitkiGoster(s, rvm);
-            //addWeighted(rvm, 0.7, rvm, 0.1, 1.5, bitkiler);
-            //add(rvm, rvm, bitkiler);
-        }
-        rv.clear();
-    }*/
-   // imshow("Bitkiler", bitkiler);
-
-    refNoktalariBul(ornekGoruntu, glgcikarim);
-    circle(ornekGoruntu, Point(320, 240), 10, Scalar(255,255,255), 3);
-    imshow("BGR", h);
+   // refNoktalariBul(ornekGoruntu, glgcikarim);
+    //circle(ornekGoruntu, Point(320, 240), 10, Scalar(255,255,255), 3);
+    //imshow("BGR", h);
    // gy.goruntuEkle(ornekGoruntu);
-     imshow("goruntu", ornekGoruntu);
-     imshow("glg cikarimi", glgcikarim);
-
+    //imshow("goruntu", ornekGoruntu);
+    imshow("glg cikarimi", glgcikarim);
+*/
 
 }
 
