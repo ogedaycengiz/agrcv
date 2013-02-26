@@ -121,7 +121,7 @@ public:
         int pikselSayisi = aralik.size();
         for (int i = 0; i < pikselSayisi; i++, hedef += 3)
         {
-            if (*kaynak == 255)
+            if (*kaynak < 200)
             {
                 int p1 = (int)hedef[0];
                 int p2 = (int)hedef[1];
@@ -133,7 +133,7 @@ public:
 
                 ort_golge_ici_sayac++;
             }
-            else if (*kaynak == 0)
+            else if (*kaynak > 200)
             {
                 int p1 = (int)hedef[0];
                 int p2 = (int)hedef[1];
@@ -173,7 +173,7 @@ public:
 
         for (int i = 0; i < pikselSayisi; i++, hedef += 3)
         {
-            if (*kaynak == 255)
+            if (*kaynak < 200)
             {
                 hedef[0] += (uchar) c_b/2 +c;
                 hedef[1] += (uchar) c_g/2 +c;

@@ -82,14 +82,14 @@ int main(int argc, char *argv[])
    int t_sonuc1, t_sonuc2;
    t_sonuc1 = pthread_create(&goruntuisleme_thread, NULL, goruntuisleme_t_fonksiyon, NULL);
     VideoCapture capture;
-    const string dosya_adi = "/home/linaro/kayit.avi";
+    const string dosya_adi = "/home/eren/kayit.avi";
     capture.open(dosya_adi);
 
     //ofstream paralel;
   //  paralel.open("/home/eren/normal.txt");
    // paralel << "---Paralel İşleme---\n";
 
-    int k = 0;
+    //int k = 0;
     while (true)
     {
         double gecen_sure;
@@ -130,30 +130,28 @@ void kameradanIslet(Mat &rr)
    // Mat r = gy.kameradanOku();
     Mat r = rr;
     r.copyTo(ornekGoruntu);
-    blur(ornekGoruntu, ornekGoruntu, Size(3,3));
+   // blur(ornekGoruntu, ornekGoruntu, Size(3,3));
     Mat h = Mat(ornekGoruntu.size(), CV_8UC1);
     paralelgolge_bul(ornekGoruntu, h);
-    Mat grayhist = Mat(50, 256, CV_8U, Scalar(255));
-    int ix = goruntuIsleme.grayHistogram(h, grayhist);
 
-    threshold(h, h, ix / 2, 255, CV_THRESH_BINARY_INV);
+  //  Mat grayhist = Mat(50, 256, CV_8U, Scalar(255));
+//    int ix = goruntuIsleme.grayHistogram(h, grayhist);
+
+    //threshold(h, h, ix / 2, 255, CV_THRESH_BINARY_INV);
     erode(h, h, Mat());
     dilate(h, h, Mat());
-    dilate(h, h, Mat());
-    imshow("BGR", h);
+    //dilate(h, h, Mat());
+    paralel_golgeSil(h, r);
+    imshow("BGR", r);
 
-   Mat glg;
-   r.copyTo(glg);
-   paralel_golgeSil(h, glg);
-   imshow("golge tamamen silindi", glg);
    Mat glgcikarim = Mat(ornekGoruntu.size(), CV_8UC1);
-   paralelbgr(glg,glgcikarim);
+   paralelbgr(r,glgcikarim);
    erode(glgcikarim, glgcikarim, Mat(), Point(-1,-1), 2);
    dilate(glgcikarim, glgcikarim, Mat());
   // blur(glgcikarim, glgcikarim, Size(3,3));
    imshow("Golge", glgcikarim);
-   Mat grayhist_glg = Mat(50, 256, CV_8U, Scalar(255));
-   int ix_glg = goruntuIsleme.grayHistogram(glgcikarim, grayhist_glg);
+   //Mat grayhist_glg = Mat(50, 256, CV_8U, Scalar(255));
+   //int ix_glg = goruntuIsleme.grayHistogram(glgcikarim, grayhist_glg);
 
    Mat kernel = (Mat_<uchar>(3,3) <<  0, 1, 0, 1, 1, 1, 0, 1, 0);
    dilate(glgcikarim, glgcikarim, kernel);
@@ -167,7 +165,6 @@ void kameradanIslet(Mat &rr)
     //gy.goruntuEkle(ornekGoruntu);
    imshow("goruntu", ornekGoruntu);
    imshow("glg cikarimi", glgcikarim);
-
 }
 
 void dosyadanIslet(const char *res_yol)
