@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
    int t_sonuc1, t_sonuc2;
    t_sonuc1 = pthread_create(&goruntuisleme_thread, NULL, goruntuisleme_t_fonksiyon, NULL);
     VideoCapture capture;
-    const string dosya_adi = "/home/eren/kayit.avi";
+    const string dosya_adi = "/home/linaro/kayit.avi";
     capture.open(dosya_adi);
 
     //ofstream paralel;
