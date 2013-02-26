@@ -17,7 +17,7 @@ SOURCES += main.cpp \
     SeriPrt.cpp \
     VideoStab.cpp
 
-unix:!macx:!symbian: LIBS += -L$$PWD/../OpenCV-2.4.3/lib/ -lopencv_core
+unix:!macx:!symbian: LIBS += -L$$PWD/../OpenCV-2.4.4/lib/ -lopencv_core
 
 LIBS +=  -lopencv_imgproc -lopencv_objdetect -lopencv_highgui -lopencv_calib3d -lopencv_features2d -lopencv_video
 
@@ -44,5 +44,8 @@ LIBS += -lqextserialport
 unix:DEFINES = _TTY_POSIX_
 
 INCLUDEPATH += $$PWD/qextserialport
+
+OTHER_FILES += \
+    cross_compile.txt
 
 

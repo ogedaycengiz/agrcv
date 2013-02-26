@@ -47,7 +47,7 @@ public:
         uchar *kaynak = girdi.data + aralik.start * 3;
 
         int pikselSayisi = aralik.size();
-        cout << "Piksel Sayisi ::" << pikselSayisi << endl;
+        //cout << "Piksel Sayisi ::" << pikselSayisi << endl;
         for (int i = 0; i < pikselSayisi; i++, kaynak+=3)
         {
             uchar b = kaynak[0];

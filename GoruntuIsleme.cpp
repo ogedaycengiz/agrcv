@@ -80,6 +80,7 @@ void GoruntuIsleme::arkaplanCikarimi(Mat &res, Mat &ornekHist, Mat &arkRes)
 vector<Point> GoruntuIsleme::ayristir(Mat &res, int sX1, int sX2, int sY1, int sY2)
 {
     //cout << "p[x]" << endl;
+    //Hiç beyaz piksel yoksa vektör'ün out of range olmasını engeller.
     rectangle(res, Rect(sX1, sY1, sX1 + sX2, sY1 + sY2), Scalar(255,255, 255), 1, 4);
     vector<Point> noktalar;
     uchar *p;
@@ -98,7 +99,6 @@ vector<Point> GoruntuIsleme::ayristir(Mat &res, int sX1, int sX2, int sY1, int s
 
         }
     }
-    cout << "Beyaz piksel sayisi : " << i << endl;
     return noktalar;
 }
 
@@ -162,7 +162,7 @@ void GoruntuIsleme::histResDegisimi(Mat &res, Mat &hist)
             q = hist.ptr<uchar>(y);
             for (int x = 0; x < res.rows; x++)
             {
-                cout << "hist = " << x << " deger = " << saturate_cast<int>((saturate_cast<float>(q[x]) * 255) / histMaksDeger) << endl;
+               // cout << "hist = " << x << " deger = " << saturate_cast<int>((saturate_cast<float>(q[x]) * 255) / histMaksDeger) << endl;
                 p[x] = saturate_cast<int>((saturate_cast<float>(q[x]) * 180) / histMaksDeger);
             }
         }
@@ -313,7 +313,7 @@ int GoruntuIsleme::grayHistogram(Mat &res, Mat &hist_res)
         int normalized = static_cast<int>(value * 50 / maxval);
         line(hist_res, Point(i, 50), Point(i, 50 - normalized), Scalar(0));
     }
-    cout << "İndis" << indis << "deger = " << enFazla << endl;
+    //cout << "İndis" << indis << "deger = " << enFazla << endl;
     return indis;
 }
 

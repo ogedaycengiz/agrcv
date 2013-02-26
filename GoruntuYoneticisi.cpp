@@ -72,7 +72,7 @@ void GoruntuYoneticisi::kameraAyarlariniYap()
     char EXT[] = {ex & 0XFF , (ex & 0XFF00) >> 8,(ex & 0XFF0000) >> 16,(ex & 0XFF000000) >> 24, 0};
 
     cout << "Codec : " << EXT;
-    string dosya_yolu = "/home/eren/kayitvv.avi";
+    string dosya_yolu = "/home/linaro/kayitvv.avi";
     writer.open(dosya_yolu, ex,15, S, true);
 
     if (writer.isOpened())

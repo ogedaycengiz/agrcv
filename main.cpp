@@ -130,19 +130,19 @@ void kameradanIslet(Mat &rr)
    // Mat r = gy.kameradanOku();
     Mat r = rr;
     r.copyTo(ornekGoruntu);
-    //blur(ornekGoruntu, ornekGoruntu, Size(9,9));
+    blur(ornekGoruntu, ornekGoruntu, Size(3,3));
     Mat h = Mat(ornekGoruntu.size(), CV_8UC1);
     paralelgolge_bul(ornekGoruntu, h);
     Mat grayhist = Mat(50, 256, CV_8U, Scalar(255));
     int ix = goruntuIsleme.grayHistogram(h, grayhist);
-    imshow("BGRR", h);
+
     threshold(h, h, ix / 2, 255, CV_THRESH_BINARY_INV);
     erode(h, h, Mat());
     dilate(h, h, Mat());
     dilate(h, h, Mat());
     imshow("BGR", h);
 
-   /*Mat glg;
+   Mat glg;
    r.copyTo(glg);
    paralel_golgeSil(h, glg);
    imshow("golge tamamen silindi", glg);
@@ -150,7 +150,7 @@ void kameradanIslet(Mat &rr)
    paralelbgr(glg,glgcikarim);
    erode(glgcikarim, glgcikarim, Mat(), Point(-1,-1), 2);
    dilate(glgcikarim, glgcikarim, Mat());
-   blur(glgcikarim, glgcikarim, Size(3,3));
+  // blur(glgcikarim, glgcikarim, Size(3,3));
    imshow("Golge", glgcikarim);
    Mat grayhist_glg = Mat(50, 256, CV_8U, Scalar(255));
    int ix_glg = goruntuIsleme.grayHistogram(glgcikarim, grayhist_glg);
@@ -161,13 +161,12 @@ void kameradanIslet(Mat &rr)
    threshold(glgcikarim, glgcikarim, 10, 255, CV_THRESH_BINARY);
    dilate(glgcikarim, glgcikarim, kernel);
    erode(glgcikarim, glgcikarim, kernel);
-   // refNoktalariBul(ornekGoruntu, glgcikarim);
-    //circle(ornekGoruntu, Point(320, 240), 10, Scalar(255,255,255), 3);
-    //imshow("BGR", h);
-   // gy.goruntuEkle(ornekGoruntu);
-    //imshow("goruntu", ornekGoruntu);
-    imshow("glg cikarimi", glgcikarim);
-*/
+   refNoktalariBul(ornekGoruntu, glgcikarim);
+   circle(ornekGoruntu, Point(320, 240), 10, Scalar(255,255,255), 3);
+   imshow("BGR", h);
+    //gy.goruntuEkle(ornekGoruntu);
+   imshow("goruntu", ornekGoruntu);
+   imshow("glg cikarimi", glgcikarim);
 
 }
 
@@ -244,10 +243,10 @@ void noktaBelirle(vector<Point> &n)
     }
     xO = xO / n.size();
     yO = yO / n.size();
-    cout << "px: " << xO << "py: " << yO << endl;
-    stringstream ss;
-    ss << " " << xO << "," <<  yO;
-    string s = ss.str();
+    //cout << "px: " << xO << "py: " << yO << endl;
+   // stringstream ss;
+   // ss << " " << xO << "," <<  yO;
+   // string s = ss.str();
     //putText(km, s, Point(xO, yO), 1, 0.8, Scalar(255,255,255));
     im.push_back(Point(xO, yO));
    // circle(km, Point(xO, yO), 5, Scalar(255,0,0), 5);
@@ -257,6 +256,7 @@ void refNoktalariBul(Mat &res, Mat &backproj)
 {
     if (!backproj.empty())
     {
+        //Burası paralel olabilir.
         vector<Point> n1, n2, n3, n4, n5;
         n1 = goruntuIsleme.ayristir(backproj, 0, 320, 0, 96);
         n2 = goruntuIsleme.ayristir(backproj, 0, 320, 96, 192);
@@ -274,6 +274,7 @@ void refNoktalariBul(Mat &res, Mat &backproj)
         if (!n5.empty() && n5.size() > 10)
             noktaBelirle(n5);
 
+        //Burası paralel olabilir.
         vector<Point> m1, m2, m3, m4, m5;
         m1 = goruntuIsleme.ayristir(backproj, 320, 640, 0, 96);
         m2 = goruntuIsleme.ayristir(backproj, 320, 640, 96, 192);
@@ -327,9 +328,9 @@ void refCizgileriniCiz(Mat &res, int vB, Point &p1p, Point &q1p, Point &p2p, Poi
         circle(res, im.at(i), 5, Scalar(255,0,0), 5);
 
         stringstream ss;
-        ss << " " << "V" <<  i;
-        string s = ss.str();
-        putText(res, s, im.at(i), 1, 0.8, Scalar(0,0,0));
+     //   ss << " " << "V" <<  i;
+      //  string s = ss.str();
+      //  putText(res, s, im.at(i), 1, 0.8, Scalar(0,0,0));
     }
    // int ortx, orty;
     for (int i = 0; i < im.size() / 2 -1; i++)
@@ -376,14 +377,14 @@ void refCizgileriniCiz(Mat &res, int vB, Point &p1p, Point &q1p, Point &p2p, Poi
     double aci = atan2((double) p1.y - p2.y, (double) p1.x - p2.x);
     double hip = sqrt((p1.y - p2.y) * (p1.y - p2.y) + (p1.x - p2.x) * (p1.x - p2.x));
 
-    stringstream ss;
-    ss << " " << "tan(alfa): " <<  tan(aci);
-    string s = ss.str();
-    putText(res, s, Point(10,10), 1, 0.8, Scalar(0,0,0));
-    stringstream sss;
-    sss << " " << "hip: " << hip;
-    s = sss.str();
-    putText(res, s, Point(10,20), 1, 0.8, Scalar(0,0,0));
+    //stringstream ss;
+   // ss << " " << "tan(alfa): " <<  tan(aci);
+    //string s = ss.str();
+   // putText(res, s, Point(10,10), 1, 0.8, Scalar(0,0,0));
+   // stringstream sss;
+    //sss << " " << "hip: " << hip;
+    //s = sss.str();
+    //putText(res, s, Point(10,20), 1, 0.8, Scalar(0,0,0));
 
     p2.x = (int) (p1.x  - 1 * hip * cos(aci));
     p2.y = (int) (p1.y - 1 * hip * sin(aci));
@@ -404,7 +405,7 @@ void refCizgileriniCiz(Mat &res, int vB, Point &p1p, Point &q1p, Point &p2p, Poi
     fark.y = abs(o_orta.y - orta.y);
   //  line(res, Point(orta.x, orta.y), fark, Scalar(255,255,0), 2);
     //line(res, fark, p1, Scalar(0,0,255), 2);
-    cout << "Fark = " << fark.x << endl;
+    //cout << "Fark = " << fark.x << endl;
     if (tan(aci) > 0) //sola dön.
     {
         //yonBilgisiniGonder(true, fark.x, abs(orta.x - o1.x));
@@ -453,7 +454,7 @@ void bitkiGoster(string b, Mat res)
 void yonBilgisiniGonder(bool yon, int uzaklik, int orta_nok_uzakligi)
 {
     //bool b = false;
-    cout << "Orta Nokta Uzakligi  = " << orta_nok_uzakligi << endl;
+    //cout << "Orta Nokta Uzakligi  = " << orta_nok_uzakligi << endl;
     string s;
     Scalar scalar;
     double olcek = .9;
@@ -466,14 +467,14 @@ void yonBilgisiniGonder(bool yon, int uzaklik, int orta_nok_uzakligi)
             scalar = Scalar(255, 255, 255);
             olcek = 1;
             s = "SOLA KAYDIR!";
-            cout << "Sola Kay.." << endl;
+      //      cout << "Sola Kay.." << endl;
             yuzde = (100 * uzaklik) / orta_nok_uzakligi;
         }
         else if (!yon) //sağ.
         {
             scalar = Scalar(0, 0, 255);
             s = "SAGA KAYDIR!";
-            cout << "Sağa Kay.." << endl;
+        //    cout << "Sağa Kay.." << endl;
             olcek = .9;
             yuzde = (100 * uzaklik) / orta_nok_uzakligi;
         }
@@ -482,11 +483,11 @@ void yonBilgisiniGonder(bool yon, int uzaklik, int orta_nok_uzakligi)
     {
         scalar = Scalar(0, 255, 255);
         s = "HAREKET YOK!";
-        cout << "Hareket yok." << endl;
+        //cout << "Hareket yok." << endl;
     }
     putText(ornekGoruntu, s, Point(250, 470), FONT_HERSHEY_COMPLEX, olcek, scalar);
 
-    cout << "Yüzde = " << yuzde << endl;
+    //cout << "Yüzde = " << yuzde << endl;
     QString gonderilecek_bilgi;
 
 
@@ -515,7 +516,7 @@ void yonBilgisiniGonder(bool yon, int uzaklik, int orta_nok_uzakligi)
     {
         gonderilecek_bilgi = seriPortCikisiniFormatlandir(gonderilecek_bilgi);
         gonderilecek_bilgi.append(QString("\n\r"));
-        qDebug() << "Gonderilen bilgi: " << gonderilecek_bilgi;
+      //  qDebug() << "Gonderilen bilgi: " << gonderilecek_bilgi;
         seriPort->seriPortaYaz(gonderilecek_bilgi);
     }
     else if (yuzde <= YUZDE_ESIK || !kaymaKontrol)
@@ -573,7 +574,7 @@ void goruntuyuKaydir(int ekran_kaymasi, Point &oo)
     Point o1, o2;
     o1 = im.at(4);
     o2 = im.at(9);
-    qDebug() << "Kayma degeri : " << oo.x;
+   // qDebug() << "Kayma degeri : " << oo.x;
     bool yonBilgisi = false;
     Point fark_o;
     fark_o.x = 0;
