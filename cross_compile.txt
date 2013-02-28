@@ -1,1 +1,13 @@
 cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_TOOLCHAIN_FILE=../arm-gnueabi.toolchain.cmake -D CMAKE_INSTALL_PREFIX=/usr/lib -D WITH_QT=ON -D BUILD_QT=ON -D WITH_XINE=ON -D WITH_OPENGL=ON -D WITH_TBB=ON -D BUILD_TBB=ON ../../..
+
+CPU Ayarları:
+
+echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor:
+Bütün çekirdekleri aktif kılar. Güç tüketim modundan çıkılır.
+
+
+Bu ayarları sistem açıldıktan sonra yapabilmek için:
+gedit /etc/init.d/ondemand
+
+"echo -n ondemand > $CPUFREQ" satırı,
+"echo -n performance > $CPUFREQ" ile değiştirilir.
