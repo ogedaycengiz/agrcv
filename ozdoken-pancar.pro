@@ -46,6 +46,7 @@ unix:DEFINES = _TTY_POSIX_
 INCLUDEPATH += $$PWD/qextserialport
 
 OTHER_FILES += \
-    cross_compile.txt
+    cross_compile.txt \
+    respawn.sh
 
 

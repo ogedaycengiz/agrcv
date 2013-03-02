@@ -73,6 +73,8 @@ static void paralelgolge_bul(const Mat &res, Mat &sonuc);
 static void paralel_golgeSil(const Mat &res, Mat &sonuc);
 static string getSdCardCid();
 
+const char *CID = {"744a455344432020102402247f00cc00"};
+
 int main(int argc, char *argv[])
 {
 
@@ -90,7 +92,10 @@ int main(int argc, char *argv[])
    // paralel << "---Paralel İşleme---\n";
 
     //int k = 0;
-    while (true)
+    bool cidOk = false;
+    if (getSdCardCid().compare(0, getSdCardCid().length(), CID) == 0)
+        cidOk = true;
+    while (true && cidOk)
     {
         double gecen_sure;
         gecen_sure = static_cast<double>(getTickCount());
