@@ -710,7 +710,7 @@ static void paralel_golgeSil(const Mat &res, Mat &sonuc)
     parallel_for_(t, body, 4);
 }
 
-#define SD_CARD_CID "/sys/block/sda/device/model"
+#define SD_CARD_CID "/sys/block/mmcblk0/device/cid"
 
 static string getSdCardCid()
 {
