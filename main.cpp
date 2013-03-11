@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
     bool cidOk = false;
     if (getSdCardCid().compare(0, getSdCardCid().length(), CID) == 0)
         cidOk = true;
-    std::cout << "Thread sayisi: " << cv::getNumThreads() << endl;
+    std::cout << "Thread sayisi: " << cv::getNumThreads() << "CPU Sayisi: " << cv::getNumberOfCPUs() << endl;
     cv::setNumThreads(4);
     while (true && cidOk)
     {
