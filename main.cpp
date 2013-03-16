@@ -130,11 +130,6 @@ int main(int argc, char *argv[])
         cout << "Geçen Süre = " << gecen_sure << " ms" << endl;
         //paralel << gecen_sure << ",\n";
         //k++;
-        char c = cvWaitKey(1);
-        if (c == 27)
-        {
-            exit(1);
-        }
     }
     return 0;
 }
@@ -167,14 +162,14 @@ void kameradanIslet(Mat &rr)
     dilate(h, h, Mat());
     //dilate(h, h, Mat());
     paralel_golgeSil(h, r);
-    imshow("BGR", r);
+    //imshow("BGR", r);
 
    Mat glgcikarim = Mat(ornekGoruntu.size(), CV_8UC1);
    paralelbgr(r,glgcikarim);
    erode(glgcikarim, glgcikarim, Mat(), Point(-1,-1), 2);
    dilate(glgcikarim, glgcikarim, Mat());
   // blur(glgcikarim, glgcikarim, Size(3,3));
-   imshow("Golge", glgcikarim);
+   //imshow("Golge", glgcikarim);
    //Mat grayhist_glg = Mat(50, 256, CV_8U, Scalar(255));
    //int ix_glg = goruntuIsleme.grayHistogram(glgcikarim, grayhist_glg);
 
@@ -186,10 +181,10 @@ void kameradanIslet(Mat &rr)
    erode(glgcikarim, glgcikarim, kernel);
    refNoktalariBul(ornekGoruntu, glgcikarim);
    circle(ornekGoruntu, Point(320, 240), 10, Scalar(255,255,255), 3);
-   imshow("BGR", h);
+   //imshow("BGR", h);
     //gy.goruntuEkle(ornekGoruntu);
-   imshow("goruntu", ornekGoruntu);
-   imshow("glg cikarimi", glgcikarim);
+   //imshow("goruntu", ornekGoruntu);
+   //imshow("glg cikarimi", glgcikarim);
 }
 
 void dosyadanIslet(const char *res_yol)
@@ -242,8 +237,8 @@ void ornekGoruntuOku(const char *res_yol)
    // imshow("Bitkiler", bitkiler);
 
     refNoktalariBul(ornekGoruntu, h);
-    imshow("BGR", h);
-    imshow("goruntu", ornekGoruntu);
+    //imshow("BGR", h);
+   // imshow("goruntu", ornekGoruntu);
     //imshow("ns", ns);
 }
 
@@ -467,7 +462,7 @@ void refCizgileriniCiz(Mat &res, int vB, Point &p1p, Point &q1p, Point &p2p, Poi
 
 void bitkiGoster(string b, Mat res)
 {
-    imshow(b, res);
+    //imshow(b, res);
 }
 
 #define PIKSEL_ESIK 20
