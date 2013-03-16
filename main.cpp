@@ -72,8 +72,12 @@ static void paralelbgr(const Mat &res, Mat &sonuc);
 static void paralelgolge_bul(const Mat &res, Mat &sonuc);
 static void paralel_golgeSil(const Mat &res, Mat &sonuc);
 static string getSdCardCid();
+static string getSdCardSerial();
+static string getOEMID();
 
 const char *CID = {"744a455344432020102402247f00cc00"};
+const char *SERIAL = {"0x2402247f"};
+const char *OEM_ID = {"0x4a45"};
 
 int main(int argc, char *argv[])
 {
@@ -93,11 +97,19 @@ int main(int argc, char *argv[])
 
     //int k = 0;
     bool cidOk = false;
+    bool serialOk = false;
+    bool oemOk = false;
     if (getSdCardCid().compare(0, getSdCardCid().length(), CID) == 0)
         cidOk = true;
-    std::cout << "Thread sayisi: " << cv::getNumThreads() << "CPU Sayisi: " << cv::getNumberOfCPUs() << endl;
+
+    if (getSdCardSerial().compare(0, getSdCardSerial().length(), SERIAL) == 0)
+        serialOk = true;
+
+    if (getOEMID().compare(0, getOEMID().length(), OEM_ID) == 0)
+        oemOk = true;
+
     cv::setNumThreads(4);
-    while (true && cidOk)
+    while (true && cidOk && serialOk && oemOk)
     {
         double gecen_sure;
         gecen_sure = static_cast<double>(getTickCount());
@@ -331,7 +343,7 @@ void refCizgileriniCiz(Mat &res, int vB, Point &p1p, Point &q1p, Point &p2p, Poi
     {
         circle(res, im.at(i), 5, Scalar(255,0,0), 5);
 
-        stringstream ss;
+      //  stringstream ss;
      //   ss << " " << "V" <<  i;
       //  string s = ss.str();
       //  putText(res, s, im.at(i), 1, 0.8, Scalar(0,0,0));
@@ -713,6 +725,9 @@ static void paralel_golgeSil(const Mat &res, Mat &sonuc)
 }
 
 #define SD_CARD_CID "/sys/block/mmcblk0/device/cid"
+#define SD_CARD_SERIAL "/sys/block/mmcblk0/device/serial"
+#define SD_CARD_OEM_ID "/sys/block/mmcblk0/device/oemid"
+
 
 static string getSdCardCid()
 {
@@ -722,4 +737,25 @@ static string getSdCardCid()
     file >> cid;
     file.close();
     return cid;
+}
+
+static string getSdCardSerial()
+{
+    string serial;
+    ifstream file;
+    file.open(SD_CARD_SERIAL);
+    file >> serial;
+    file.close();
+    return serial;
+}
+
+static string getOEMID()
+{
+    string oemid;
+    ifstream file;
+    file.open(SD_CARD_OEM_ID);
+    file.open(SD_CARD_OEM_ID);
+    file >> oemid;
+    file.close();
+    return oemid;
 }
