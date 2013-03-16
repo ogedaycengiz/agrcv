@@ -112,10 +112,10 @@ int main(int argc, char *argv[])
     if (getOEMID().compare(0, getOEMID().length(), OEM_ID) == 0)
         oemOk = true;
     else
-        oemOK = false;
+        oemOk = false;
 
     cv::setNumThreads(4);
-    while (true && cidOk /*&& serialOk && oemOk*/)
+    while (true && cidOk && serialOk && oemOk)
     {
         double gecen_sure;
         gecen_sure = static_cast<double>(getTickCount());
