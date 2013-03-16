@@ -48,6 +48,7 @@ INCLUDEPATH += $$PWD/qextserialport
 OTHER_FILES += \
     cross_compile.txt \
     respawn.sh \
-    vncboot.sh
+    vncboot.sh \
+    compile.sh
 
 
