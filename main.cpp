@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
     else
         oemOk = false;
 
-    cv::setNumThreads(4);
+   // cv::setNumThreads(4);
     while (true && cidOk && serialOk && oemOk)
     {
         double gecen_sure;
@@ -130,6 +130,9 @@ int main(int argc, char *argv[])
         cout << "Geçen Süre = " << gecen_sure << " ms" << endl;
         //paralel << gecen_sure << ",\n";
         //k++;
+        char c = cv::waitKey(1);
+        if (c == 13)
+            break;
     }
     return 0;
 }
