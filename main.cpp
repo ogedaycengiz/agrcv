@@ -101,15 +101,21 @@ int main(int argc, char *argv[])
     bool oemOk = false;
     if (getSdCardCid().compare(0, getSdCardCid().length(), CID) == 0)
         cidOk = true;
+    else
+        cidOk = false;
 
     if (getSdCardSerial().compare(0, getSdCardSerial().length(), SERIAL) == 0)
         serialOk = true;
+    else
+        serialOk = false;
 
     if (getOEMID().compare(0, getOEMID().length(), OEM_ID) == 0)
         oemOk = true;
+    else
+        oemOK = false;
 
     cv::setNumThreads(4);
-    while (true && cidOk && serialOk && oemOk)
+    while (true && cidOk /*&& serialOk && oemOk*/)
     {
         double gecen_sure;
         gecen_sure = static_cast<double>(getTickCount());
