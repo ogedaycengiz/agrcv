@@ -122,8 +122,8 @@ int main(int argc, char *argv[])
         //kameradanIslet();
 
        // capture >> tmp;
-     //   kameradanIslet();
-        imshow("tttm", gy.kameradanOku());
+       kameradanIslet();
+     //   imshow("tttm", gy.kameradanOku());
         gecen_sure = (static_cast<double>(getTickCount()) - gecen_sure) * 1000.;
         gecen_sure /= getTickFrequency();
         cout << "Geçen Süre = " << gecen_sure << " ms" << endl;
@@ -163,7 +163,7 @@ void kameradanIslet()
     erode(h, h, Mat());
     dilate(h, h, Mat());
     //dilate(h, h, Mat());
-    paralel_golgeSil(h, r);
+    //paralel_golgeSil(h, r);
     //imshow("BGR", r);
 
    Mat glgcikarim = Mat(ornekGoruntu.size(), CV_8UC1);
@@ -183,10 +183,10 @@ void kameradanIslet()
    erode(glgcikarim, glgcikarim, kernel);
    refNoktalariBul(ornekGoruntu, glgcikarim);
    circle(ornekGoruntu, Point(320, 240), 10, Scalar(255,255,255), 3);
-   //imshow("BGR", h);
- //   gy.goruntuEkle(ornekGoruntu);
-   //imshow("goruntu", ornekGoruntu);
-   //imshow("glg cikarimi", glgcikarim);
+  // imshow("BGR", h);
+   // gy.goruntuEkle(ornekGoruntu);
+   imshow("goruntu", ornekGoruntu);
+   imshow("glg cikarimi", glgcikarim);
 }
 
 void dosyadanIslet(const char *res_yol)
