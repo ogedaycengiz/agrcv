@@ -19,7 +19,7 @@
 using namespace std;
 using namespace cv;
 
-void kameradanIslet(Mat &rr);
+void kameradanIslet();
 void dosyadanIslet(const char *res_yol);
 void ornekGoruntuOku(const char *res_yol);
 void noktaBelirle(vector<Point> &n);
@@ -87,9 +87,9 @@ int main(int argc, char *argv[])
    seriPort->seriPortuAc(QString("/dev/ttyUSB0"));
    int t_sonuc1, t_sonuc2;
    t_sonuc1 = pthread_create(&goruntuisleme_thread, NULL, goruntuisleme_t_fonksiyon, NULL);
-    VideoCapture capture;
-    const string dosya_adi = "/home/linaro/kayit.avi";
-    capture.open(dosya_adi);
+//    VideoCapture capture;
+//    const string dosya_adi = "/home/linaro/kayit.avi";
+//    capture.open(-1);
 
     //ofstream paralel;
   //  paralel.open("/home/eren/normal.txt");
@@ -121,9 +121,8 @@ int main(int argc, char *argv[])
         gecen_sure = static_cast<double>(getTickCount());
         //kameradanIslet();
 
-        Mat tmp;
-        capture >> tmp;
-        kameradanIslet(tmp);
+       // capture >> tmp;
+        kameradanIslet();
        // imshow("tttm", tmp);
         gecen_sure = (static_cast<double>(getTickCount()) - gecen_sure) * 1000.;
         gecen_sure /= getTickFrequency();
@@ -146,12 +145,12 @@ static void onMouse(int event, int x, int y, int, void*)
 /*rr parametresi video'dan gelen görüntü karesidir. Daha sonra bu değiştirilip kameradan oku
  *metodu aktifleştirilecektir.
 */
-void kameradanIslet(Mat &rr)
+void kameradanIslet()
 {
     //Kameradan okunacak görüntü ile çalışacak. Şuan deneme yapabilmek için video ile çalışılıyor.
     //gy.vidyoDanOku();
-   // Mat r = gy.kameradanOku();
-    Mat r = rr;
+    Mat r = gy.kameradanOku();
+   // Mat r = rr;
     r.copyTo(ornekGoruntu);
    // blur(ornekGoruntu, ornekGoruntu, Size(3,3));
     Mat h = Mat(ornekGoruntu.size(), CV_8UC1);
