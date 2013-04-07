@@ -61,9 +61,9 @@ void GoruntuYoneticisi::kameraAyarlariniYap()
     capture.set(CV_CAP_PROP_FRAME_WIDTH, 640);
     capture.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
 
-    capture.set(CV_CAP_PROP_EXPOSURE, 250);
-    capture.set(CV_CAP_PROP_GAIN, 100);
-    capture.set(CV_CAP_PROP_SATURATION, 180);
+//    capture.set(CV_CAP_PROP_EXPOSURE, 250);
+//    capture.set(CV_CAP_PROP_GAIN, 100);
+//    capture.set(CV_CAP_PROP_SATURATION, 180);
 
     Size S = Size((int) 640,
                   (int) 480);
