@@ -115,15 +115,15 @@ int main(int argc, char *argv[])
         oemOk = false;
 
    // cv::setNumThreads(4);
-    while (true && cidOk && serialOk && oemOk)
+    while (true /*&& cidOk && serialOk && oemOk*/)
     {
         double gecen_sure;
         gecen_sure = static_cast<double>(getTickCount());
         //kameradanIslet();
 
        // capture >> tmp;
-        kameradanIslet();
-       // imshow("tttm", tmp);
+     //   kameradanIslet();
+        imshow("tttm", gy.kameradanOku());
         gecen_sure = (static_cast<double>(getTickCount()) - gecen_sure) * 1000.;
         gecen_sure /= getTickFrequency();
         cout << "Geçen Süre = " << gecen_sure << " ms" << endl;
@@ -184,7 +184,7 @@ void kameradanIslet()
    refNoktalariBul(ornekGoruntu, glgcikarim);
    circle(ornekGoruntu, Point(320, 240), 10, Scalar(255,255,255), 3);
    //imshow("BGR", h);
-    gy.goruntuEkle(ornekGoruntu);
+ //   gy.goruntuEkle(ornekGoruntu);
    //imshow("goruntu", ornekGoruntu);
    //imshow("glg cikarimi", glgcikarim);
 }
