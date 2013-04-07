@@ -35,7 +35,7 @@ Mat GoruntuYoneticisi::kameradanOku()
 void GoruntuYoneticisi::kamerayiAc(int id)
 {
     capture.open(id);
-    kameraAyarlariniYap();
+  //  kameraAyarlariniYap();
     if (capture.isOpened())
     {
         cout << "Kamera acildi\n";
@@ -57,7 +57,7 @@ void GoruntuYoneticisi::kamerayiKapat()
 
 void GoruntuYoneticisi::kameraAyarlariniYap()
 {
-    capture.set(CV_CAP_PROP_FPS, 30.0);
+    //capture.set(CV_CAP_PROP_FPS, 30.0);
     capture.set(CV_CAP_PROP_FRAME_WIDTH, 640);
     capture.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
 
