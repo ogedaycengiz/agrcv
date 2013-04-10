@@ -185,8 +185,8 @@ void kameradanIslet()
    circle(ornekGoruntu, Point(320, 240), 10, Scalar(255,255,255), 3);
   // imshow("BGR", h);
    // gy.goruntuEkle(ornekGoruntu);
-   imshow("goruntu", ornekGoruntu);
-   imshow("glg cikarimi", glgcikarim);
+//   imshow("goruntu", ornekGoruntu);
+//   imshow("glg cikarimi", glgcikarim);
 }
 
 void dosyadanIslet(const char *res_yol)
