@@ -32,8 +32,7 @@ HEADERS += \
 LIBS += -lqextserialport
 unix:DEFINES = _TTY_POSIX_
 
-INCLUDEPATH += INCLUDEPATH += /usr/local/qextserialport
-#INCLUDEPATH += $$PWD/qextserialport
+INCLUDEPATH += $$PWD/qextserialport
 
 OTHER_FILES += \
     cross_compile.txt \
@@ -45,5 +44,5 @@ OTHER_FILES += \
 
 unix:!macx: LIBS += -L$$PWD/qextserialport/build/ -lqextserialport
 
-#INCLUDEPATH += $$PWD/qextserialport/build
+INCLUDEPATH += $$PWD/qextserialport/build
 #DEPENDPATH += $$PWD/qextserialport/build
