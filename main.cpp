@@ -191,6 +191,7 @@ void kameradanIslet()
     //gy.goruntuEkle(ornekGoruntu);
 //   imshow("goruntu", ornekGoruntu);
 //   imshow("glg cikarimi", glgcikarim);
+   imwrite("test.jpg", ornekGoruntu);
 }
 
 void dosyadanIslet(const char *res_yol)
