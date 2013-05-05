@@ -85,6 +85,8 @@ int main(int argc, char *argv[])
    QApplication a(argc, argv);
    seriPort = new SeriPort();
    seriPort->seriPortuAc(QString("/dev/ttyUSB0"));
+   if (seriPort->seriPortDurumDondur() == false)
+       seriPort->seriPortuAc(QString("/dev/ttyUSB1"));
    int t_sonuc1, t_sonuc2;
    t_sonuc1 = pthread_create(&goruntuisleme_thread, NULL, goruntuisleme_t_fonksiyon, NULL);
 //    VideoCapture capture;
@@ -184,7 +186,7 @@ void kameradanIslet()
    refNoktalariBul(ornekGoruntu, glgcikarim);
    circle(ornekGoruntu, Point(320, 240), 10, Scalar(255,255,255), 3);
   // imshow("BGR", h);
-   // gy.goruntuEkle(ornekGoruntu);
+    //gy.goruntuEkle(ornekGoruntu);
 //   imshow("goruntu", ornekGoruntu);
 //   imshow("glg cikarimi", glgcikarim);
 }
