@@ -9,12 +9,6 @@ CONFIG   -= app_bundle
 SOURCES += main.cpp \
     GoruntuYoneticisi.cpp \
     GoruntuIsleme.cpp \
-    cvblob/cvBlob/cvtrack.cpp \
-    cvblob/cvBlob/cvlabel.cpp \
-    cvblob/cvBlob/cvcontour.cpp \
-    cvblob/cvBlob/cvcolor.cpp \
-    cvblob/cvBlob/cvblob.cpp \
-    cvblob/cvBlob/cvaux.cpp \
     TcpBaglantisi.cpp \
     SeriPrt.cpp \
     VideoStab.cpp
@@ -39,6 +33,8 @@ LIBS += -lqextserialport
 unix:DEFINES = _TTY_POSIX_
 
 INCLUDEPATH += INCLUDEPATH += /usr/local/qextserialport
+#INCLUDEPATH += $$PWD/qextserialport
+
 OTHER_FILES += \
     cross_compile.txt \
     respawn.sh \
@@ -46,3 +42,8 @@ OTHER_FILES += \
     compile.sh
 
 
+
+unix:!macx: LIBS += -L$$PWD/qextserialport/build/ -lqextserialport
+
+#INCLUDEPATH += $$PWD/qextserialport/build
+#DEPENDPATH += $$PWD/qextserialport/build

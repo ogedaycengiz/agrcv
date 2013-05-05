@@ -8,7 +8,7 @@ GoruntuIsleme::GoruntuIsleme()
     h_araligi[1] = 180;
     h_araligiGtr = h_araligi;
     vmin = 100; vmax = 256; smin = 100;
-    mog = new BackgroundSubtractorMOG2();
+//    mog = new BackgroundSubtractorMOG2();
     ort_golge_ici_sayac = 0;
     ort_golge_disi_sayac = 0;
 
@@ -169,94 +169,94 @@ void GoruntuIsleme::histResDegisimi(Mat &res, Mat &hist)
 }
 
 
-Mat GoruntuIsleme::blobCikarimi(Mat &res, int param1, int param2)
-{
-    //Mat'ten IplImage'e dönüşüm yap.
-    IplImage blobRes = res;
-    IplImage *blobSon = 0;
-    blobSon = cvCreateImage(cvGetSize(&blobRes), IPL_DEPTH_8U, 3);
-    blobs = CBlobResult(&blobRes, NULL, param1);
-    blobs.Filter(blobs, B_INCLUDE, CBlobGetArea(), B_GREATER, param2);
-    cvMerge(&blobRes, &blobRes, &blobRes, NULL, blobSon);
-    for (int i = 0; i < blobs.GetNumBlobs(); i++)
-    {
-        guncelBlob = blobs.GetBlob(i);
-        guncelBlob->FillBlob(blobSon, CV_RGB(255,0,0));
-    }
-    //IplImage'den Mat'e dönüşüm yap.
-    Mat bMat = cvarrToMat(blobSon).clone();
-    cvReleaseImage(&blobSon);
-    return bMat;
-}
+//Mat GoruntuIsleme::blobCikarimi(Mat &res, int param1, int param2)
+//{
+//    //Mat'ten IplImage'e dönüşüm yap.
+//    IplImage blobRes = res;
+//    IplImage *blobSon = 0;
+//    blobSon = cvCreateImage(cvGetSize(&blobRes), IPL_DEPTH_8U, 3);
+//    blobs = CBlobResult(&blobRes, NULL, param1);
+//    blobs.Filter(blobs, B_INCLUDE, CBlobGetArea(), B_GREATER, param2);
+//    cvMerge(&blobRes, &blobRes, &blobRes, NULL, blobSon);
+//    for (int i = 0; i < blobs.GetNumBlobs(); i++)
+//    {
+//        guncelBlob = blobs.GetBlob(i);
+//        guncelBlob->FillBlob(blobSon, CV_RGB(255,0,0));
+//    }
+//    //IplImage'den Mat'e dönüşüm yap.
+//    Mat bMat = cvarrToMat(blobSon).clone();
+//    cvReleaseImage(&blobSon);
+//    return bMat;
+//}
 
 
-void GoruntuIsleme::arkplanCikarimimog(Mat &res, Mat &arkaplan, Mat &onplan)
-{
-    Mat cekirdek(7, 3, CV_8U);
-    mog->operator ()(res, onplan);
-    mog->getBackgroundImage(arkaplan);
+//void GoruntuIsleme::arkplanCikarimimog(Mat &res, Mat &arkaplan, Mat &onplan)
+//{
+//    Mat cekirdek(7, 3, CV_8U);
+//    mog->operator ()(res, onplan);
+//    mog->getBackgroundImage(arkaplan);
 
-    threshold(onplan, onplan, 128, 255, CV_THRESH_BINARY);
+//    threshold(onplan, onplan, 128, 255, CV_THRESH_BINARY);
 
-    erode(onplan, onplan, Mat());
-    dilate(onplan, onplan, cekirdek);
+//    erode(onplan, onplan, Mat());
+//    dilate(onplan, onplan, cekirdek);
 
-}
-
-
-bool GoruntuIsleme::mogUzerindenBlobCikarimi(Mat res, Mat &onplanBlob, int min_area, int max_area, vector<Rect> &rv)
-{
-    bool durum;
-    //Mat tmp;
-  //  res.copyTo(tmp);
-    matIpl = res;
-    mogRes = onplanBlob;
-    IplImage *labelRes = cvCreateImage(cvGetSize(&matIpl), IPL_DEPTH_LABEL, 1);
-
-    CvBlobs blbs;
-    unsigned int sonuc = cvLabel(&mogRes, labelRes, blbs);
-    cvFilterByArea(blbs,min_area, max_area);
-
-    cvRenderBlobs(labelRes, blbs, &matIpl, &matIpl, CV_BLOB_RENDER_CENTROID | CV_BLOB_RENDER_COLOR);
+//}
 
 
-    CvBlobs::iterator itk = blbs.begin();
-    while (itk != blbs.end())
-    {
-        CvBlob *blob=(*itk).second;
-        Rect r = Rect(Point(blob->minx, blob->miny), Point(blob->maxx -1, blob->maxy - 1));
-        rv.push_back(r);
-      //  rectangle(res, r , Scalar(255,255,0), 3);
-        itk++;
-    }
+//bool GoruntuIsleme::mogUzerindenBlobCikarimi(Mat res, Mat &onplanBlob, int min_area, int max_area, vector<Rect> &rv)
+//{
+//    bool durum;
+//    //Mat tmp;
+//  //  res.copyTo(tmp);
+//    matIpl = res;
+//    mogRes = onplanBlob;
+//    IplImage *labelRes = cvCreateImage(cvGetSize(&matIpl), IPL_DEPTH_LABEL, 1);
 
-    cvUpdateTracks(blbs, tracks, 20., 15, 5);
-   // CvTracks::iterator it = tracks.begin();
-    //CvTrack *track = (*it).second;
+//    CvBlobs blbs;
+//    unsigned int sonuc = cvLabel(&mogRes, labelRes, blbs);
+//    cvFilterByArea(blbs,min_area, max_area);
 
-    cvRenderTracks(tracks, &matIpl, &matIpl, CV_TRACK_RENDER_ID | CV_TRACK_RENDER_BOUNDING_BOX);
-
-    if (!tracks.empty()) //&& track->lifetime > 4)
-    {
-       // hedefMerkezi.x = track->centroid.x;
-       // hedefMerkezi.y = track->centroid.y;
+//    cvRenderBlobs(labelRes, blbs, &matIpl, &matIpl, CV_BLOB_RENDER_CENTROID | CV_BLOB_RENDER_COLOR);
 
 
+//    CvBlobs::iterator itk = blbs.begin();
+//    while (itk != blbs.end())
+//    {
+//        CvBlob *blob=(*itk).second;
+//        Rect r = Rect(Point(blob->minx, blob->miny), Point(blob->maxx -1, blob->maxy - 1));
+//        rv.push_back(r);
+//      //  rectangle(res, r , Scalar(255,255,0), 3);
+//        itk++;
+//    }
 
-      /*  cvLine(&matIpl, cvPoint(hedefMerkezi.x, 0), cvPoint(hedefMerkezi.x, matIpl.height), CV_RGB(255,0,0), 4);
-        cvLine(&matIpl, cvPoint(0, hedefMerkezi.y), cvPoint(matIpl.width, hedefMerkezi.y), CV_RGB(255,0,0), 4);
-        cvCircle(&matIpl, cvPoint(hedefMerkezi.x, hedefMerkezi.y), 5, CV_RGB(255,255,255), 4);*/
-        durum  = true;
-   }
-   else
-   {
-        durum = false;
-   }
-   res = &matIpl;
-   cvReleaseImage(&labelRes);
-   //imshow("MOGGG", res);
-   return durum;
-}
+//    cvUpdateTracks(blbs, tracks, 20., 15, 5);
+//   // CvTracks::iterator it = tracks.begin();
+//    //CvTrack *track = (*it).second;
+
+//    cvRenderTracks(tracks, &matIpl, &matIpl, CV_TRACK_RENDER_ID | CV_TRACK_RENDER_BOUNDING_BOX);
+
+//    if (!tracks.empty()) //&& track->lifetime > 4)
+//    {
+//       // hedefMerkezi.x = track->centroid.x;
+//       // hedefMerkezi.y = track->centroid.y;
+
+
+
+//      /*  cvLine(&matIpl, cvPoint(hedefMerkezi.x, 0), cvPoint(hedefMerkezi.x, matIpl.height), CV_RGB(255,0,0), 4);
+//        cvLine(&matIpl, cvPoint(0, hedefMerkezi.y), cvPoint(matIpl.width, hedefMerkezi.y), CV_RGB(255,0,0), 4);
+//        cvCircle(&matIpl, cvPoint(hedefMerkezi.x, hedefMerkezi.y), 5, CV_RGB(255,255,255), 4);*/
+//        durum  = true;
+//   }
+//   else
+//   {
+//        durum = false;
+//   }
+//   res = &matIpl;
+//   cvReleaseImage(&labelRes);
+//   //imshow("MOGGG", res);
+//   return durum;
+//}
 
 
 void GoruntuIsleme::histogramEsitleme(Mat &res, Mat &sonuc)

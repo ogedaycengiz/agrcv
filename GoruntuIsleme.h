@@ -55,8 +55,8 @@ private:
     double histMinDeger;
     double histMaksDeger;
    // Point merkez;
-    CBlobResult blobs;
-    CBlob *guncelBlob;
+    //CBlobResult blobs;
+    //CBlob *guncelBlob;
 
     /*Arkpalan çıkarımı ==> mog.*/
     BackgroundSubtractorMOG2 *mog;
