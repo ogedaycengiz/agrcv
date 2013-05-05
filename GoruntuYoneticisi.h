@@ -19,11 +19,11 @@ public:
     void kamerayiKapat();
     void goruntuEkle(Mat res);
     void vidyoDanOku();
+    void kamerayiAc(int id);
 private:
     VideoCapture capture;
     VideoWriter writer;
     bool kameraDurumu;
-    void kamerayiAc(int id);
     void kameraAyarlariniYap();
 };
 

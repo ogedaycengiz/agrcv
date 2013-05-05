@@ -116,6 +116,8 @@ int main(int argc, char *argv[])
     else
         oemOk = false;
 
+    gy.kamerayiAc(-1);
+    sleep(10);
    // cv::setNumThreads(4);
     while (true /*&& cidOk && serialOk && oemOk*/)
     {

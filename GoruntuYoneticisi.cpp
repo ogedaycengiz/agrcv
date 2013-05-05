@@ -2,7 +2,6 @@
 
 GoruntuYoneticisi::GoruntuYoneticisi()
 {
-    kamerayiAc(-1);
 
 }
 
