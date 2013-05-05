@@ -2,8 +2,8 @@
 #define GORUNTUISLEME_H
 
 #include <opencv2/opencv.hpp>
-#include <BlobResult.h>
-#include <blob.h>
+//#include <BlobResult.h>
+//#include <blob.h>
 #include <iostream>
 
 #include <opencv/cv.h>

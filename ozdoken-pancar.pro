@@ -1,8 +1,10 @@
-TEMPLATE = app
-CONFIG += console
-CONFIG += qt
+QT       += core network
 
-QT       += core gui network opengl
+QT       -= gui
+
+TARGET = ozdoken-pancar
+CONFIG   += console
+CONFIG   -= app_bundle
 
 SOURCES += main.cpp \
     GoruntuYoneticisi.cpp \
@@ -33,18 +35,10 @@ HEADERS += \
 
 
 
-unix:!macx:!symbian: LIBS += -L$$PWD/cvblobs/ -lblob
-
-INCLUDEPATH += $$PWD/cvblobs
-DEPENDPATH += $$PWD/cvblobs
-
-unix:!macx:!symbian: PRE_TARGETDEPS += $$PWD/cvblobs/libblob.a
-
 LIBS += -lqextserialport
 unix:DEFINES = _TTY_POSIX_
 
-INCLUDEPATH += $$PWD/qextserialport
-
+INCLUDEPATH += INCLUDEPATH += /usr/local/qextserialport
 OTHER_FILES += \
     cross_compile.txt \
     respawn.sh \

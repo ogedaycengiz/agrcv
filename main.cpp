@@ -3,9 +3,9 @@
 #include <GoruntuIsleme.h>
 //#include <SeriPort.h>
 
-#include <QApplication>
+#include <QCoreApplication>
 
-#include <QSound>
+//#include <QSound>
 //#include <phonon/phonon>
 
 #include <TcpBaglantisi.h>
@@ -82,7 +82,7 @@ const char *OEM_ID = {"0x4a45"};
 int main(int argc, char *argv[])
 {
 
-   QApplication a(argc, argv);
+   QCoreApplication a(argc, argv);
    seriPort = new SeriPort();
    seriPort->seriPortuAc(QString("/dev/ttyUSB0"));
    if (seriPort->seriPortDurumDondur() == false)
@@ -98,23 +98,23 @@ int main(int argc, char *argv[])
    // paralel << "---Paralel İşleme---\n";
 
     //int k = 0;
-    bool cidOk = false;
-    bool serialOk = false;
-    bool oemOk = false;
-    if (getSdCardCid().compare(0, getSdCardCid().length(), CID) == 0)
-        cidOk = true;
-    else
-        cidOk = false;
+//    bool cidOk = false;
+//    bool serialOk = false;
+//    bool oemOk = false;
+//    if (getSdCardCid().compare(0, getSdCardCid().length(), CID) == 0)
+//        cidOk = true;
+//    else
+//        cidOk = false;
 
-    if (getSdCardSerial().compare(0, getSdCardSerial().length(), SERIAL) == 0)
-        serialOk = true;
-    else
-        serialOk = false;
+//    if (getSdCardSerial().compare(0, getSdCardSerial().length(), SERIAL) == 0)
+//        serialOk = true;
+//    else
+//        serialOk = false;
 
-    if (getOEMID().compare(0, getOEMID().length(), OEM_ID) == 0)
-        oemOk = true;
-    else
-        oemOk = false;
+//    if (getOEMID().compare(0, getOEMID().length(), OEM_ID) == 0)
+//        oemOk = true;
+//    else
+//        oemOk = false;
 
     gy.kamerayiAc(-1);
     sleep(10);
@@ -191,7 +191,6 @@ void kameradanIslet()
     //gy.goruntuEkle(ornekGoruntu);
 //   imshow("goruntu", ornekGoruntu);
 //   imshow("glg cikarimi", glgcikarim);
-   imwrite("test.jpg", ornekGoruntu);
 }
 
 void dosyadanIslet(const char *res_yol)
