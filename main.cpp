@@ -85,8 +85,6 @@ int main(int argc, char *argv[])
    QCoreApplication a(argc, argv);
    seriPort = new SeriPort();
    seriPort->seriPortuAc(QString("/dev/ttyUSB0"));
-   if (seriPort->seriPortDurumDondur() == false)
-       seriPort->seriPortuAc(QString("/dev/ttyUSB1"));
    int t_sonuc1, t_sonuc2;
    t_sonuc1 = pthread_create(&goruntuisleme_thread, NULL, goruntuisleme_t_fonksiyon, NULL);
 //    VideoCapture capture;
@@ -117,7 +115,7 @@ int main(int argc, char *argv[])
 //        oemOk = false;
 
     gy.kamerayiAc(-1);
-    sleep(10);
+    sleep(5);
    // cv::setNumThreads(4);
     while (true /*&& cidOk && serialOk && oemOk*/)
     {
