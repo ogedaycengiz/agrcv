@@ -83,8 +83,14 @@ int main(int argc, char *argv[])
 {
 
    QCoreApplication a(argc, argv);
+   QFile::setPermissions("/dev/ttyUSB0", QFile::WriteUser | QFile::ReadUser);
    seriPort = new SeriPort();
    seriPort->seriPortuAc(QString("/dev/ttyUSB0"));
+   QFile file(QString("durum.txt"));
+   if (seriPort->seriPortDurumDondur() && file.open(QIODevice::WriteOnly))
+       file.write("ok");
+   file.close();
+
    int t_sonuc1, t_sonuc2;
    t_sonuc1 = pthread_create(&goruntuisleme_thread, NULL, goruntuisleme_t_fonksiyon, NULL);
 //    VideoCapture capture;
